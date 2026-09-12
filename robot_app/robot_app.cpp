@@ -1,5 +1,4 @@
-// robot_app.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
+
 
 
 
@@ -14,13 +13,11 @@ int main()
         "Test SFML"
     );
 
-    //Init the car, create it and positionate it
 
     Car user_car(25.f);
     user_car.setPosition({ 400.f, 300.f }); 
 
 
-    //Window loop of Window SFML
 
     while (window.isOpen())
     {
@@ -31,7 +28,7 @@ int main()
         }
         user_car.update();
         window.clear();
-        window.draw(user_car); // Appelle automatiquement Car::draw(...) !
+        window.draw(user_car); 
         window.display();
     }
 
