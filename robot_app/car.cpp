@@ -5,17 +5,22 @@
 //function that go with the entitie car
 
 const float lin_speed = 0.1;
-const float rot_speed = 0.2;
+const float rot_speed = 0.1;
 
 Car::Car(float radius)
     : car_shape(radius), car_speed(lin_speed)
 {
     car_shape.setOrigin({ radius, radius });
     car_shape.setFillColor(sf::Color::Blue);
+
+    Sensor sensor_test(150.f, 0);
+    front_sensor = sensor_test;
+
     view_line.setSize({ 150.f,1.f });
     view_line.setOrigin({ 0.f, 0.5f });
     view_line.setPosition({radius,0.f });
     view_line.setFillColor(sf::Color::Red);
+
 }
 
 void Car::update(const std::vector<sf::RectangleShape>& obstacles)
@@ -44,6 +49,7 @@ void Car::update(const std::vector<sf::RectangleShape>& obstacles)
             move({ vx, vy });
         }
     }
+    front_sensor.update_sensor(obstacles, getTransform(), dot_coords);
 }
 
 bool Car::can_move(const std::vector<sf::RectangleShape>& obstacles) const
@@ -107,6 +113,11 @@ void Car::draw(sf::RenderTarget& target, sf::RenderStates states) const
     
     states.transform *= getTransform();
 
-    target.draw(car_shape, states);    target.draw(view_line, states);
+    target.draw(car_shape, states);    
+    //target.draw(view_line, states);
+    target.draw(front_sensor, states);
+}
+std::vector<sf::Vector2f> Car::get_coord_obs() {
+    return dot_coords;
 }
 
