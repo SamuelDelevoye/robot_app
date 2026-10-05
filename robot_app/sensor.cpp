@@ -5,7 +5,9 @@
 
 
 void update_coords(sf::Vector2f new_coord, std::vector<sf::Vector2f>& dot_coords) {
-
+/*
+Keep the coords of wall and filter the dots to take of the ones to closes
+*/
     bool can_add = true;
     for (const auto& coord : dot_coords) {
         sf::Vector2f dist = coord - new_coord;
@@ -24,10 +26,14 @@ void update_coords(sf::Vector2f new_coord, std::vector<sf::Vector2f>& dot_coords
 }
 
 Sensor::Sensor(float length, float angleInDegrees)
-    : s_length(length), angle(angleInDegrees),dist_dot(length)
+/*
+init sensor Class
+*/
+: s_length(length), angle(angleInDegrees),dist_dot(length)
+
 {
     is_trigger = false;
-    s_line.setSize({ length, 2.f });
+    s_line.setSize({ length, 2.f }); //line of 2 px width
     s_line.setFillColor(sf::Color::Yellow);
     s_line.setOrigin({ 0.f, 1.f });
 
@@ -51,35 +57,35 @@ void Sensor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 
 void Sensor::update_sensor(const std::vector<sf::RectangleShape>& obstacles, const sf::Transform& parentTransform, std::vector<sf::Vector2f>& dot_coords) {
+    //Update the sensor to detect walls
+    //Go from the car to the end of the sensor and detect when it's in a wall by strp of 1 pixel
 
+    float step = 1;
     sf::Transform globalTransform = parentTransform * getTransform();
 
     sf::Vector2f globalDotPosition = globalTransform.transformPoint({ dist_dot, 0.f });
 
     bool isColliding = false;
+    dist_dot = 0;
 
-  
+    for (; dist_dot <= s_length; dist_dot += step) {
+        for ( const auto& obs : obstacles) {
+        
+            globalDotPosition = globalTransform.transformPoint({ dist_dot, 0.f });
+            if (obs.getGlobalBounds().contains(globalDotPosition)) {
 
-    for (const auto& obs : obstacles) {
 
-        if (obs.getGlobalBounds().contains(globalDotPosition)) {
-          
+                isColliding = true;
+                update_coords(globalDotPosition, dot_coords);
+                break;
+            }
 
-            isColliding = true;
-            update_coords(globalDotPosition, dot_coords);
-            break;
         }
+        if (isColliding) {
+            break;
+       }
     }
-
-    if (isColliding) {
-        dist_dot -= 1.0f;
-        if (dist_dot < 0.f) dist_dot = 0.f;
-    }
-    else if (dist_dot < s_length) {
-        dist_dot += 1.0f; 
-    }
-
     end_dot.setPosition({ dist_dot, 0.f });
-    s_line.setSize({ dist_dot, 2.f });
+ 
 }
 

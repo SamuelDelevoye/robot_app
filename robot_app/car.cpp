@@ -4,8 +4,8 @@
 
 //function that go with the entitie car
 
-const float lin_speed = 0.1;
-const float rot_speed = 0.1;
+const float lin_speed = 2;
+const float rot_speed = 2;
 
 Car::Car(float radius)
     : car_shape(radius), car_speed(lin_speed)
