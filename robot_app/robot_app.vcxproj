@@ -125,9 +125,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="box.cpp" />
     <ClCompile Include="car.cpp" />
-    <ClCompile Include="robot_app.cpp" />
+    <ClCompile Include="box.hpp" />
+    <ClCompile Include="grid.cpp" />
+    <ClCompile Include="grid.hpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="sensor.cpp" />
+    <ClCompile Include="test_grid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="car.hpp" />
