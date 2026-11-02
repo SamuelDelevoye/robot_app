@@ -58,6 +58,7 @@ bool Grid::place_obstacle(float x, float y)
 
 Box* Grid::get_box_of_point(float x, float y)
 {
+    //get the box that frame the coords
     int col = static_cast<int>(x / size_box);
     int row = static_cast<int>(y / size_box);
 
@@ -72,6 +73,7 @@ Box* Grid::get_box_of_point(float x, float y)
 
 bool Grid::is_in_grid(Box test_box) const
 {
+    
     float x = test_box.get_middle_coords().x;
     float y = test_box.get_middle_coords().y;
     return x >= 0 && y >= 0 &&
@@ -111,6 +113,13 @@ void Grid::place_cost(float coord_target_x, float coord_target_y) {
 
 void Grid::wavefront_init(float target_x, float target_y)
 {
+    /*
+    Init using the wavefront algorythme
+    we start at the target, put it in a queu,put the cost and delete it from the queue
+    and after we put the boxes that are next to it in a queue to check them after,
+    init "previous_box" with the target box, put their neighbour in the queu,and than delete them
+    it ends when there is nothing left in the queue
+    */
     std::queue<Box*> queue;
 
     Box* target = get_box_of_point(target_x, target_y);

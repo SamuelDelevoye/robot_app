@@ -1,7 +1,11 @@
 #pragma once
 #include <vector>
 #include <SFML/Graphics.hpp>
+/*
+Sensor imitates a lidar sensor to detect a wall
+I use a dot that travel from the car to the end of the sensor and check if it's in collision with a wall
 
+*/
 
 class Sensor  : public sf::Drawable, public sf::Transformable {
 private:

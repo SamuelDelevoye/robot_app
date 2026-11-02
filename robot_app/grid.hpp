@@ -2,7 +2,13 @@
 #include <vector>
 #include "box.hpp"
 
+/*
+Grid use many box for mapping the SFML window
 
+we calculate the number of colones and rows by deviding length of window by the length of a box
+we use the wavefront algorythme to put the cost of each box by starting with the target box
+and than in each box we put the previous box to know the return path
+*/
 
 class Grid : public sf::Drawable
 {

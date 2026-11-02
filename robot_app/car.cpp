@@ -35,7 +35,7 @@ Car::Car(float radius, int wind_width, int wind_height,float init_target_x,float
     view_line.setPosition({radius,0.f });
     view_line.setFillColor(sf::Color::Red);
 
-
+    //init the target coords and initiate the cost for each box
     target_x = init_target_x;
     target_y = init_target_y;
     algo_grid.wavefront_init(target_x, target_y);
@@ -45,7 +45,7 @@ Car::Car(float radius, int wind_width, int wind_height,float init_target_x,float
 void Car::update(const std::vector<sf::RectangleShape>& obstacles)
 /*
 function for update :
-    if not auto we can move it with the arrows$
+    if not auto we can move it with the arrows
     if auto it goes to the target
 */
 {
@@ -77,6 +77,7 @@ function for update :
         }
     }
     else {
+
         if (auto_move)
         {
             //found the box of the car
@@ -89,7 +90,7 @@ function for update :
 
             //if we know we can move to the next box
 
-            if (current_box != nullptr)
+            if (current_box != nullptr) //check if the path exist
             {
                 next_box = current_box->get_previous();
 
@@ -114,7 +115,7 @@ function for update :
         }
     }
 
-    //Look if we detect new walls
+    //Look if we detect new walls a
 
     bool grid_changed = false;
 
@@ -131,7 +132,7 @@ function for update :
         }
     }
 
-    //If it changed we need to redo the wafront grid
+    //If it changed we need to redo the wavefront grid
 
     if (grid_changed)
     {
@@ -187,7 +188,7 @@ bool Car::can_move(const std::vector<sf::RectangleShape>& obstacles) const
     collision_dot.push_back(right_dot_45);
 
 
-    for (const auto& obs : obstacles){
+    for (const auto& obs : obstacles){ 
 
         for (const auto& dot : collision_dot) {
             
@@ -274,7 +275,7 @@ void Car::move_toward(float coord_x, float coord_y, const std::vector<sf::Rectan
     while (diff < -std::numbers::pi_v<float>)
         diff += 2.f * std::numbers::pi_v<float>;
 
-    if (std::abs(diff) > 0.01f)
+    if (std::abs(diff) > 0.01f) //check if it's close anougth to avoid oscilation
     {
         turn_toward(target_angle);
     }
