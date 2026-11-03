@@ -5,32 +5,7 @@
 #include <iostream>
 
 
-
-
-Box::Box(float x_coord,float y_coord, float size_box,int row, int col) {
-	middle_coords.x = x_coord;
-	middle_coords.y = y_coord;
-	size = size_box;
-	cost = 0;
-
-	col_box = col;
-	row_box = row;
-
-	previous_box = nullptr;
-
-	//init for the algorythme box
-
-	box_vue.setSize({ size, size });
-	box_vue.setOrigin({ size / 2.f, size / 2.f });
-	box_vue.setPosition(middle_coords);
-
-	box_vue.setFillColor(sf::Color::Transparent);
-	box_vue.setOutlineColor(sf::Color::White);
-	box_vue.setOutlineThickness(1.f);
-
-}
-
-int Box :: get_cost() {
+int Box::get_cost() {
 	return cost;
 }
 sf::Vector2f Box::get_middle_coords() {
@@ -66,3 +41,28 @@ Box* Box::get_previous()
 	return previous_box;
 }
 
+
+
+
+Box::Box(float x_coord,float y_coord, float size_box,int row, int col) {
+	middle_coords.x = x_coord;
+	middle_coords.y = y_coord;
+	size = size_box;
+	cost = 0;
+
+	col_box = col;
+	row_box = row;
+
+	previous_box = nullptr;
+
+	//init for the algorythme box
+
+	box_vue.setSize({ size, size });
+	box_vue.setOrigin({ size / 2.f, size / 2.f });
+	box_vue.setPosition(middle_coords);
+
+	box_vue.setFillColor(sf::Color::Transparent);
+	box_vue.setOutlineColor(sf::Color::White);
+	box_vue.setOutlineThickness(1.f);
+
+}

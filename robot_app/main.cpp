@@ -9,6 +9,7 @@
 const float radius = 25.f;
 const int wind_width = 1920;
 const int wind_height = 1080;
+
 /*
 auto_type = true if we want the automatic car with algo
 auto_type = false if we want to control the car
